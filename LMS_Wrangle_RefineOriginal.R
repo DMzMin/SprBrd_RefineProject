@@ -24,12 +24,12 @@ refine_company <- as.data.frame(refine_charconvert %>%
   gsub("Phillips", "philips") & gsub("phillips", "philips")
 )
 
-#refine_company <- refine_charconvert %>% 
- # mutate(
-  #  company = ifelse(company = "Phillips" | company = "phillips" | company = "philips" | company = "phllips" | company = "phillps" | company = "phillipS", "philips", 
-   #     ifelse(company = "akzo" | company = "Akzo" | company = "AKZO" | company = "akz0" | company = "ak zo", company = "akzo", 
-    #           ifelse(company = "Van Houten" | company = "van Houten" | company = "van houten", company = "van houten",
-     #                 ifelse(company = "unilver" | company = "unilever" | company = "Unilever", company = "uniliver", NA)))))
+refine_company <- refine_charconvert %>% 
+  mutate(
+    company = ifelse(company = "Phillips" | company = "phillips" | company = "philips" | company = "phllips" | company = "phillps" | company = "phillipS", "philips", 
+        ifelse(company = "akzo" | company = "Akzo" | company = "AKZO" | company = "akz0" | company = "ak zo", company = "akzo", 
+               ifelse(company = "Van Houten" | company = "van Houten" | company = "van houten", company = "van houten",
+                      ifelse(company = "unilver" | company = "unilever" | company = "Unilever", company = "uniliver", NA)))))
 
 
 
