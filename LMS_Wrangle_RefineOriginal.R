@@ -13,16 +13,22 @@ library(tidyr)
 refine_original <- read.csv("~/Desktop/CAPSTONE/refine_original.csv")
 
 glimpse(refine_original)
-# after glimpsing refine_original data frame it is noted that all columns are currently classed as factors and must be converted to characters
+# IGNORE THIS STEP FOR NOW! after glimpsing refine_original data frame it is noted that all columns are currently classed as factors and must be converted to characters
 
-refine_charconvert <- data.frame(lapply(refine_original, as.character), stringsAsFactors = FALSE)
+# refine_charconvert <- data.frame(lapply(refine_original, as.character), stringsAsFactors = FALSE)
 
 # step 1: clean up brand names - clean 'company' column to have consistent brand names:
 # philips, akzo, van houten and unilever (all lower case)
 
-refine_company <- as.data.frame(refine_charconvert %>%
-  gsub("Phillips", "philips") & gsub("phillips", "philips")
-)
+refine_original$company ["Phillips"] <- "philips"
+refine_original$company ["phillips"] <- "philips"
+refine_original$company ["phllips"] <- "philips"
+refine_original$company ["phllips"] <- "philips"
+refine_original$company ["phillps"] <- "philips"
+
+
+refine_charconvert <- as.data.frame(refine_charconvert %>%
+  gsub(pattern = "Phillips", replacement = "philips"))
 
 refine_company <- refine_charconvert %>% 
   mutate(
