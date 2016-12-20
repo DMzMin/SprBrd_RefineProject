@@ -13,39 +13,20 @@ library(tidyr)
 refine_original <- read.csv("~/Desktop/CAPSTONE/refine_original.csv")
 
 glimpse(refine_original)
-# IGNORE THIS STEP FOR NOW! after glimpsing refine_original data frame it is noted that all columns are currently classed as factors and must be converted to characters
 
-# refine_charconvert <- data.frame(lapply(refine_original, as.character), stringsAsFactors = FALSE)
+# collect all spelling versions into their vectors
+
+SP_philips <- c("Phillips", "phillips", "phllips", "phillps", "phillipS", "fillips", "phlips", "philips")
+SP_akzo <- c("Akzo", "AKZO", "akz0", "ak zo", "akzo")
+SP_van_houten <- c("Van Houten", "van Houten", "van houten")
+SP_unilever <- c("unilver", "unilever", "Unilever", "unilever")
 
 # step 1: clean up brand names - clean 'company' column to have consistent brand names:
 # philips, akzo, van houten and unilever (all lower case)
 
-refine_original$company ["Phillips"] <- "philips"
-refine_original$company ["phillips"] <- "philips"
-refine_original$company ["phllips"] <- "philips"
-refine_original$company ["phllips"] <- "philips"
-refine_original$company ["phillps"] <- "philips"
+companysub <-  gsub(SP_philips, "philips", refine_original$company) +
+  gsub(SP_akzo, "akzo", refine_original$company) +
+  gsub(SP_van_houten, "van houten", refine_original$company) +
+  gsub(SP_unilever, "unilever", refine_original$company)
 
-
-refine_charconvert <- as.data.frame(refine_charconvert %>%
-  gsub(pattern = "Phillips", replacement = "philips"))
-
-refine_company <- refine_charconvert %>% 
-  mutate(
-    company = ifelse(company = "Phillips" | company = "phillips" | company = "philips" | company = "phllips" | company = "phillps" | company = "phillipS", "philips", 
-        ifelse(company = "akzo" | company = "Akzo" | company = "AKZO" | company = "akz0" | company = "ak zo", company = "akzo", 
-               ifelse(company = "Van Houten" | company = "van Houten" | company = "van houten", company = "van houten",
-                      ifelse(company = "unilver" | company = "unilever" | company = "Unilever", company = "uniliver", NA)))))
-
-
-
-
-#refine_company <- refine_charconvert %>% 
- # mutate(company = ifelse(company == "Phillips", "philips", "NOT Philips"))
-
-#refine_company <- mutate(refine_charconvert$company, company_name = ifelse(company = "Phillips", "philips", "testing_NON"))
-
-#refine_charconvert <- refine_charconvert %>%
- # sub("Phillips","phillips")
-      
-  #    || "phillips" || "phllips" || "phillipS", "phillips", fixed = TRUE)
+companysub
