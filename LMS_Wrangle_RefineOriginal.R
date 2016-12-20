@@ -33,5 +33,14 @@ glimpse(refine_original)
 
 # step 2: seperate refine_original$Product.code...number into 'product_code' and 'product_number'
 
-refine_clean <- refine_original %>% 
+refine_original <- refine_original %>% 
   separate(col = Product_code...number,into = c("product_code", "product_number"), sep = "-")
+
+# step 3: add a column with the 'product_category' for each record, where:
+#         p = Smartphone, v = TV, x = Laptop, q = Tablet
+
+prod_cat_list <- c(p = "Smartphone", v = "TV", x = "Laptop", q = "Tablet")
+
+refine_original <- refine_original %>% mutate(product_code, prod_cat_list)
+
+names(refine_original)
