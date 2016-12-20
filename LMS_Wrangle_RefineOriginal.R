@@ -30,3 +30,8 @@ refine_original$company[refine_original$company %in% SP_van_houten] <- "van hout
 refine_original$company[refine_original$company %in% SP_unilever] <- "unilever"
 
 glimpse(refine_original)
+
+# step 2: seperate refine_original$Product.code...number into 'product_code' and 'product_number'
+
+refine_clean <- refine_original %>% 
+  separate(col = Product_code...number,into = c("product_code", "product_number"), sep = "-")
