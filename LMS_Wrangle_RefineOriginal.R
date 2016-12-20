@@ -24,9 +24,9 @@ SP_unilever <- c("unilver", "unilever", "Unilever", "unilever")
 # step 1: clean up brand names - clean 'company' column to have consistent brand names:
 # philips, akzo, van houten and unilever (all lower case)
 
-companysub <-  gsub(SP_philips, "philips", refine_original$company) +
-  gsub(SP_akzo, "akzo", refine_original$company) +
-  gsub(SP_van_houten, "van houten", refine_original$company) +
-  gsub(SP_unilever, "unilever", refine_original$company)
+refine_original$company[refine_original$company %in% SP_philips] <- "philips"
+refine_original$company[refine_original$company %in% SP_akzo] <- "akzo"
+refine_original$company[refine_original$company %in% SP_van_houten] <- "van houten"
+refine_original$company[refine_original$company %in% SP_unilever] <- "unilever"
 
-companysub
+glimpse(refine_original)
