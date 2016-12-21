@@ -10,7 +10,7 @@ library(tidyr)
 
 # load refine_original.csv file into RStudio and review
 
-refine_original <- read.csv("~/Desktop/CAPSTONE/refine_original.csv")
+refine_original <- read.csv("~refine_original.csv")
 
 glimpse(refine_original)
 
