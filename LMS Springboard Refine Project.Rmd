@@ -1,18 +1,19 @@
 ---
-title: "Data Wrangling Exercise 1: Basic Data Manipulation"
+title: 'Data Wrangling Exercise 1: Basic Data Manipulation'
 author: "LMS"
 date: "22 December 2016"
-output: pdf_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-# install dpylr and tidyr
-install.packages("dplyr")
-install.packages("tidyr")
+# library dpylr and tidyr
 library(dplyr)
 library(tidyr)
+
+# load refine_original.csv file into RStudio and review
+refine_original <- read.csv("refine_original.csv")
 ```
 
 ## Introduction
