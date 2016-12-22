@@ -1,12 +1,9 @@
 # script to wrangle Sbringboard data wrangle project 1: refine.csv
 
-# install and load dplyr and tidyr
+# install and load dplyr
 
 install.packages("dplyr")
-install.packages("tidyr")
-
 library(dplyr)
-library(tidyr)
 
 # load refine_original.csv file into RStudio and review
 
