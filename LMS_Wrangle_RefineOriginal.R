@@ -3,11 +3,13 @@
 # install and load dplyr
 
 install.packages("dplyr")
+install.packages("tidyr")
 library(dplyr)
+library(tidyr)
 
 # load refine_original.csv file into RStudio and review
 
-refine_original <- read.csv("~refine_original.csv")
+refine_original <- read.csv("refine_original.csv")
 
 glimpse(refine_original)
 

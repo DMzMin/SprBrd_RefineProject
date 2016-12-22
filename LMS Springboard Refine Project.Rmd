@@ -1,0 +1,106 @@
+---
+title: "Data Wrangling Exercise 1: Basic Data Manipulation"
+author: "LMS"
+date: "22 December 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# install dpylr and tidyr
+install.packages("dplyr")
+install.packages("tidyr")
+library(dplyr)
+library(tidyr)
+```
+
+## Introduction
+
+The data set 'refine_original.csv' is a data frame consisting of 25 observations across the following 6 variables:
+    'company'
+    'Product.code...number'
+    'address'
+    'city'
+    'country'
+    'name'
+  
+In this exercise the data will be cleaned up so that company names are consistent for each company, the 'product.code' and 'product.number' are separated and a new variable 'product_categpory' based upon the 'product.code' will be added.  'Address', 'city' and 'country' will be combined into a new column 'full_address' and dummy numerical variables will be made for all company and product categories.  The clean data set will be saved and written to 'refine_clean.csv'.
+
+Please note that the column 'product.code...number' is a changed name from the original 'refine.xlsx' where it is named 'product code / product number'.  This doe not always convert to 'product.code...number' in all possible conversion from .xlsx to .csv file types.
+
+## step 1: clean up company brand names 
+Clean 'company' column to have consistent brand names: philips, akzo, van houten and unilever (all lower case).
+
+```{r }
+SP_philips <- c("Phillips", "phillips", "phllips", "phillps", "phillipS", "fillips", "phlips", "philips")
+SP_akzo <- c("Akzo", "AKZO", "akz0", "ak zo", "akzo")
+SP_van_houten <- c("Van Houten", "van Houten", "van houten")
+SP_unilever <- c("unilver", "unilever", "Unilever", "unilever")
+
+refine_original$company[refine_original$company %in% SP_philips] <- "philips"
+refine_original$company[refine_original$company %in% SP_akzo] <- "akzo"
+refine_original$company[refine_original$company %in% SP_van_houten] <- "van houten"
+refine_original$company[refine_original$company %in% SP_unilever] <- "unilever"
+```
+
+## step 2: seperate refine_original$Product.code...number
+Separate the 'product_code' and 'product_number' into separate columns.
+
+```{r }
+refine_original <- refine_original %>% 
+  separate(col = Product.code...number,into = c("product_code", "product_number"), sep = "-")
+```
+
+## step 3: add the column 'product_category'
+Using the newly formed 'product_code' column make a new column for each record where:
+        p = Smartphone
+        v = TV
+        x = Laptop
+        q = Tablet
+
+```{r }
+ProdCatFunc <- function(x) {
+  ifelse(x == "p", "Smartphone",
+         ifelse(x == "v", "TV",
+                ifelse(x == "x", "Laptop",
+                       ifelse(x == "q", "Tablet", NA))))
+}
+
+refine_original <- refine_original %>% mutate(product_category = ProdCatFunc(product_code))
+```
+
+## step 4: condense the 3 address columns 
+Bring 'address', 'city' and 'country' into one new column called 'full_address'.
+
+```{r }
+refine_original <- refine_original %>% unite(full_address, address:country, sep = ",", remove = FALSE)
+```
+
+#step 5: create dummy variables for company and product categories
+Create numerical variables 0 or 1 to indicate the different companies and product categories for easy selection.
+
+```{r }
+# 'company_'
+refine_original <- refine_original %>%
+  mutate(company_philips = ifelse(company == "philips", 1, 0)) %>%
+  mutate(company_akzo = ifelse(company == "akzo", 1, 0)) %>%
+  mutate(company_van_houten = ifelse(company == "van houten", 1, 0)) %>%
+  mutate(company_unilever = ifelse(company == "unilever", 1, 0))
+
+# 'product_'
+refine_original <- refine_original %>%
+  mutate(product_smartphone = ifelse(product_category == "Smartphone", 1, 0)) %>%
+  mutate(product_tv = ifelse(product_category == "TV", 1, 0)) %>%
+  mutate(product_laptop = ifelse(product_category == "Laptop", 1, 0)) %>%
+  mutate(product_tablet = ifelse(product_category == "Tablet", 1, 0))
+```
+
+Finally read and write clead data set to 'refine_clean.csv'
+
+``` {r }
+refine_clean <- refine_original
+
+write.csv(refine_clean, file = "refine_clean.csv")
+```
+
