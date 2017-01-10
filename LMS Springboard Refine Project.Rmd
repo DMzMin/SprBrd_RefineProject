@@ -19,16 +19,12 @@ refine_original <- read.csv("refine_original.csv")
 ## Introduction
 
 The data set 'refine_original.csv' is a data frame consisting of 25 observations across the following 6 variables:
-    'company'
-    'Product.code...number'
-    'address'
-    'city'
-    'country'
-    'name'
-  
-In this exercise the data will be cleaned up so that company names are consistent for each company, the 'product.code' and 'product.number' are separated and a new variable 'product_categpory' based upon the 'product.code' will be added.  'Address', 'city' and 'country' will be combined into a new column 'full_address' and dummy numerical variables will be made for all company and product categories.  The clean data set will be saved and written to 'refine_clean.csv'.
 
-Please note that the column 'product.code...number' is a changed name from the original 'refine.xlsx' where it is named 'product code / product number'.  This doe not always convert to 'product.code...number' in all possible conversion from .xlsx to .csv file types.
+'company', 'Product.code...number', 'address', 'city', 'country', 'name'.
+  
+In this exercise the data will be cleaned up so that brand names are consistent for each company, the 'product.code' and 'product.number' are separated and a new variable 'product_category' will be added based upon the 'product.code'.  'Address', 'city' and 'country' will be combined into a new column 'full_address' and dummy numerical variables will be made for all company and product categories.  The clean data set will be saved and written to 'refine_clean.csv'.
+
+Please note that the column 'product.code...number' is a changed name from the original 'refine.xlsx' where it is named 'product code / product number'.  This does not always convert to 'product.code...number' in all possible conversion from .xlsx to .csv file types and should be checked in the original 'refine_original.csv' file before use.
 
 ## step 1: clean up company brand names 
 Clean 'company' column to have consistent brand names: philips, akzo, van houten and unilever (all lower case).
