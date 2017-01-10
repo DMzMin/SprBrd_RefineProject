@@ -1,11 +1,4 @@
 ---
-output: html_document
----
-# library dpylr and tidyr
-library(dplyr)
-library(tidyr)
-
----
 title: 'Data Wrangling Exercise 1: Basic Data Manipulation'
 author: "LMS"
 date: "10th January 2017"
@@ -14,6 +7,10 @@ output: html_document
 
 ```{r Setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+# library dpylr and tidyr
+library(dplyr)
+library(tidyr)
 
 # load refine_original.csv file into RStudio and review
 refine_original <- read.csv("refine_original.csv")
