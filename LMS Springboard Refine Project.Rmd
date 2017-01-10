@@ -50,11 +50,7 @@ refine_original <- refine_original %>%
 ```
 
 ## step 3: add the column 'product_category'
-Using the newly formed 'product_code' column make a new column for each record where:
-        p = Smartphone
-        v = TV
-        x = Laptop
-        q = Tablet
+Using the newly formed 'product_code' column make a new column for each record where 'p' = Smartphone, 'v' = TV, 'x' = Laptop and 'q' = Tablet.
 
 ```{r Step 3, include=FALSE}
 ProdCatFunc <- function(x) {
