@@ -5,4 +5,4 @@ short project by LMS to practice data wrangling.
 
 SEE "LMS_Wrangle_RefineOriginal.R" for working code.
 SEE "refine_original.csv" for original dataset and "refine_clean.csv" for cleaned dataset.
-SEE "LMS Springboard Refine Project.Rmd" or "LMS_Springboard_Refine_Project.html" for the report.
+SEE "LMS Springboard Refine Project.Rmd" for the R report.
