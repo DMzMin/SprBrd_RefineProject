@@ -1,16 +1,19 @@
 ---
+output: html_document
+---
+# library dpylr and tidyr
+library(dplyr)
+library(tidyr)
+
+---
 title: 'Data Wrangling Exercise 1: Basic Data Manipulation'
 author: "LMS"
 date: "10th January 2017"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r Setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-
-# library dpylr and tidyr
-library(dplyr)
-library(tidyr)
 
 # load refine_original.csv file into RStudio and review
 refine_original <- read.csv("refine_original.csv")
@@ -29,7 +32,7 @@ Please note that the column 'product.code...number' is a changed name from the o
 ## step 1: clean up company brand names 
 Clean 'company' column to have consistent brand names: philips, akzo, van houten and unilever (all lower case).
 
-```{r Step 1}
+```{r Step 1, include=FALSE}
 SP_philips <- c("Phillips", "phillips", "phllips", "phillps", "phillipS", "fillips", "phlips", "philips")
 SP_akzo <- c("Akzo", "AKZO", "akz0", "ak zo", "akzo")
 SP_van_houten <- c("Van Houten", "van Houten", "van houten")
@@ -44,7 +47,7 @@ refine_original$company[refine_original$company %in% SP_unilever] <- "unilever"
 ## step 2: seperate refine_original$Product.code...number
 Separate the 'product_code' and 'product_number' into separate columns.
 
-```{r Step 2}
+```{r Step 2, include=FALSE}
 refine_original <- refine_original %>% 
   separate(col = Product.code...number,into = c("product_code", "product_number"), sep = "-")
 ```
@@ -56,7 +59,7 @@ Using the newly formed 'product_code' column make a new column for each record w
         x = Laptop
         q = Tablet
 
-```{r Step 3}
+```{r Step 3, include=FALSE}
 ProdCatFunc <- function(x) {
   ifelse(x == "p", "Smartphone",
          ifelse(x == "v", "TV",
@@ -70,14 +73,14 @@ refine_original <- refine_original %>% mutate(product_category = ProdCatFunc(pro
 ## step 4: condense the 3 address columns 
 Bring 'address', 'city' and 'country' into one new column called 'full_address'.
 
-```{r Step 4}
+```{r Step 4, include=FALSE}
 refine_original <- refine_original %>% unite(full_address, address:country, sep = ",", remove = FALSE)
 ```
 
 #step 5: create dummy variables for company and product categories
 Create numerical variables 0 or 1 to indicate the different companies and product categories for easy selection.
 
-```{r Step 5}
+```{r Step 5, include=FALSE}
 # 'company_'
 refine_original <- refine_original %>%
   mutate(company_philips = ifelse(company == "philips", 1, 0)) %>%
@@ -95,7 +98,7 @@ refine_original <- refine_original %>%
 
 Finally read and write cleaned data set to 'refine_clean.csv'
 
-``` {r Write Clean CSV}
+``` {r Write Clean CSV, include=FALSE}
 refine_clean <- refine_original
 
 write.csv(refine_clean, file = "refine_clean.csv")
