@@ -97,7 +97,7 @@ refine_original <- refine_original %>%
   mutate(product_tablet = ifelse(product_category == "Tablet", 1, 0))
 ```
 
-Finally read and write clead data set to 'refine_clean.csv'
+Finally read and write cleaned data set to 'refine_clean.csv'
 
 ``` {r }
 refine_clean <- refine_original
